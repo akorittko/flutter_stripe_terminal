@@ -21,11 +21,11 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     FlutterStripeTerminal.setConnectionTokenParams(
-      "http://devapi.custofood.com/api/payments/connection_token", "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjYyNywiaXNzIjoiaHR0cDovL2RldmFwaS5jdXN0b2Zvb2QuY29tL2FwaS9sb2dpbiIsImlhdCI6MTY0NDQwODk5NCwiZXhwIjoxNjQ3MDAwOTk0LCJuYmYiOjE2NDQ0MDg5OTQsImp0aSI6ImNVY0I5b0RJRTU5dXRhSk4ifQ.O9ML8yibl6J_8Zgd_ZV4JW1uijV6YZynKxMZA5YOsY0"
-      )
-    .then((value) => FlutterStripeTerminal.startTerminalEventStream())
-    .then((value) => FlutterStripeTerminal.searchForReaders())
-    .catchError((error) => print(error));
+            "https://akdyyz.herokuapp.com/connection_token",
+            "pst_test_YWNjdF8xQUg5b2REYnMzRloxR2h2LDdNUUFkWUpzWURLVFlIT2VJOWFxNjU3N3p1WGN1NU4_00BI3vYwKh")
+        .then((value) => FlutterStripeTerminal.startTerminalEventStream())
+        .then((value) => FlutterStripeTerminal.searchForReaders())
+        .catchError((error) => print(error));
 
     FlutterStripeTerminal.readersList.listen((List<Reader> readersList) {
       setState(() {
@@ -33,15 +33,18 @@ class _MyAppState extends State<MyApp> {
       });
     });
 
-    FlutterStripeTerminal.readerConnectionStatus.listen((ReaderConnectionStatus connectionStatus) {
+    FlutterStripeTerminal.readerConnectionStatus
+        .listen((ReaderConnectionStatus connectionStatus) {
       print(connectionStatus);
     });
 
-    FlutterStripeTerminal.readerPaymentStatus.listen((ReaderPaymentStatus paymentStatus) {
+    FlutterStripeTerminal.readerPaymentStatus
+        .listen((ReaderPaymentStatus paymentStatus) {
       print(paymentStatus);
     });
 
-    FlutterStripeTerminal.readerUpdateStatus.listen((ReaderUpdateStatus updateStatus) {
+    FlutterStripeTerminal.readerUpdateStatus
+        .listen((ReaderUpdateStatus updateStatus) {
       print(updateStatus);
     });
 
@@ -55,16 +58,19 @@ class _MyAppState extends State<MyApp> {
   }
 
   void initiatePayment() async {
-    final url = Uri.parse("http://devapi.custofood.com/api/payments/payment_intent");
+    final url =
+        Uri.parse("http://devapi.custofood.com/api/payments/payment_intent");
     final response = await http.post(url, body: {
       'amount': '1'
     }, headers: {
-      'Authorization': "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjYyNywiaXNzIjoiaHR0cDovL2RldmFwaS5jdXN0b2Zvb2QuY29tL2FwaS9sb2dpbiIsImlhdCI6MTY0NDQwODk5NCwiZXhwIjoxNjQ3MDAwOTk0LCJuYmYiOjE2NDQ0MDg5OTQsImp0aSI6ImNVY0I5b0RJRTU5dXRhSk4ifQ.O9ML8yibl6J_8Zgd_ZV4JW1uijV6YZynKxMZA5YOsY0"
+      'Authorization':
+          "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjYyNywiaXNzIjoiaHR0cDovL2RldmFwaS5jdXN0b2Zvb2QuY29tL2FwaS9sb2dpbiIsImlhdCI6MTY0NDQwODk5NCwiZXhwIjoxNjQ3MDAwOTk0LCJuYmYiOjE2NDQ0MDg5OTQsImp0aSI6ImNVY0I5b0RJRTU5dXRhSk4ifQ.O9ML8yibl6J_8Zgd_ZV4JW1uijV6YZynKxMZA5YOsY0"
     });
 
     print(response.body);
 
-    String intentId = await FlutterStripeTerminal.processPayment(jsonDecode(response.body)['client_secret']);
+    String intentId = await FlutterStripeTerminal.processPayment(
+        jsonDecode(response.body)['client_secret']);
 
     print(intentId);
   }
@@ -81,25 +87,29 @@ class _MyAppState extends State<MyApp> {
                   child: Text('No devices found'),
                 )
               : Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  ElevatedButton(onPressed: () {
-                    initiatePayment();
-                  }, child: Text('Initiate payment')),
-                  ListView.builder(
-                    shrinkWrap: true,
-                  itemCount: readers.length,
-                  itemBuilder: (context, position) {
-                    return ListTile(
-                      onTap: () async {
-                        await FlutterStripeTerminal.connectToReader(readers[position].serialNumber, "tml_EZ3aRgXYNvd1Qo");
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    ElevatedButton(
+                        onPressed: () {
+                          initiatePayment();
+                        },
+                        child: Text('Initiate payment')),
+                    ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: readers.length,
+                      itemBuilder: (context, position) {
+                        return ListTile(
+                          onTap: () async {
+                            await FlutterStripeTerminal.connectToReader(
+                                readers[position].serialNumber,
+                                "tml_EZ3aRgXYNvd1Qo");
+                          },
+                          title: Text(readers[position].deviceName),
+                        );
                       },
-                      title: Text(readers[position].deviceName),
-                    );
-                  },
-                )
-                ],
-              )),
+                    )
+                  ],
+                )),
     );
   }
 }

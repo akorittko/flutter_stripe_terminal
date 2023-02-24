@@ -1,6 +1,6 @@
 PODS:
   - Flutter (1.0.0)
-  - flutter_stripe_terminal (0.0.1):
+  - flutter_stripe_terminal (0.0.2):
     - Flutter
     - StripeTerminal (= 2.16.1)
   - StripeTerminal (2.16.1)
@@ -21,7 +21,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
-  flutter_stripe_terminal: 675611c998d1edc29fd4e21d3017861c8de674f1
+  flutter_stripe_terminal: 598a3942c702f5c302ef6f44492bceb9bb30190f
   StripeTerminal: 81916e1f040f84f5d055056fdd5fb9231a26c494
 
 PODFILE CHECKSUM: cc1f88378b4bfcf93a6ce00d2c587857c6008d3b

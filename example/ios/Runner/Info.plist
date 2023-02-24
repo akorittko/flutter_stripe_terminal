@@ -2,13 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSAppTransportSecurity</key>
-	<dict>
-		<key>NSAllowsArbitraryLoads</key>
-		<true/>
-	</dict>
-	<key>LSApplicationCategoryType</key>
-	<string></string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
@@ -27,14 +20,21 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
+	<key>LSApplicationCategoryType</key>
+	<string></string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Location access is required in order to accept payments</string>
-	<key>NSBluetoothPeripheralUsageDescription</key>
-	<string>Bluetooth access is required in order to connect to supported card readers.</string>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
 	<key>NSBluetoothAlwaysUsageDescription</key>
 	<string>This app uses Bluetooth to connect to supported card readers.</string>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>Bluetooth access is required in order to connect to supported card readers.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Location access is required in order to accept payments</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>bluetooth-central</string>
@@ -58,5 +58,9 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>CADisableMinimumFrameDurationOnPhone</key>
+	<true/>
+	<key>UIApplicationSupportsIndirectInputEvents</key>
+	<true/>
 </dict>
 </plist>
